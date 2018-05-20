@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @NamedQueries({
-        @NamedQuery(name = Restaurant.GET, query = "SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.voices WHERE r.id=:id"),
-        @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.voices ORDER BY r.name "),
+        @NamedQuery(name = Restaurant.GET, query = "SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.menu WHERE r.id=:id"),
+        @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.menu ORDER BY r.name "),
         @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id =:id")
 })
 
@@ -17,11 +17,11 @@ public class Restaurant extends AbstractNamedEntity {
     public static final String GET = "Restaurant.get";
     public static final String ALL_SORTED = "Restaurant.getAllSorted";
 
-    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
     @OrderBy("name")
     private List<Eat> menu;
 
-    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
     private List<Voices> voices;
 
     public Restaurant(Integer id, String name) {

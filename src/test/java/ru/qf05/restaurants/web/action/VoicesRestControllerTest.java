@@ -4,6 +4,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.qf05.restaurants.model.Voices;
 import ru.qf05.restaurants.service.RestaurantService;
 import ru.qf05.restaurants.web.AbstractControllerTest;
@@ -29,6 +31,7 @@ public class VoicesRestControllerTest extends AbstractControllerTest {
     public RestaurantService restaurantService;
 
     @Test
+    @Transactional(propagation = Propagation.NEVER)
     public void voice() throws Exception {
         ResultActions action = mockMvc.perform(post(URL + RES_ID2)
                 .contentType(MediaType.APPLICATION_JSON)

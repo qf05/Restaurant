@@ -56,7 +56,6 @@ public class EatRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @Transactional(propagation = Propagation.NEVER)
     public void copyMenu() throws Exception {
         mockMvc.perform(get(URL + "copy/" + RES_ID1 + "?date=2018-03-24")
                 .with(userHttpBasic(ADMIN))
@@ -68,7 +67,6 @@ public class EatRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @Transactional(propagation = Propagation.NEVER)
     public void create() throws Exception {
         Eat expected = new Eat(null, "wertytreerer", 500);
         ResultActions action = mockMvc.perform(post(URL + RES_ID1)
