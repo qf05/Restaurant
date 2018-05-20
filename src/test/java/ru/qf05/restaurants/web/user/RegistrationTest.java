@@ -23,7 +23,6 @@ import static ru.qf05.restaurants.web.TestUtil.userHttpBasic;
 import static ru.qf05.restaurants.web.user.Registration.REGISTRATION_URL;
 
 public class RegistrationTest extends AbstractControllerTest {
-
     private static final String REST_URL = REGISTRATION_URL + "/";
 
     @Autowired
