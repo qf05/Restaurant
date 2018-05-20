@@ -11,12 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.qf05.restaurants.data.EatData;
 import ru.qf05.restaurants.model.Eat;
 import ru.qf05.restaurants.service.EatService;
+import ru.qf05.restaurants.service.RestaurantService;
 import ru.qf05.restaurants.util.exception.ErrorType;
 import ru.qf05.restaurants.web.AbstractControllerTest;
 import ru.qf05.restaurants.web.TestUtil;
 import ru.qf05.restaurants.web.json.JsonUtil;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -37,15 +40,8 @@ public class EatRestControllerTest extends AbstractControllerTest {
     @Autowired
     private EatService service;
 
-    @Test
-    public void getAll() throws Exception {
-        mockMvc.perform(get(URL + RES_ID1 + "?date=2018-03-24")
-                .with(userHttpBasic(USER1)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(EAT2, EAT1, EAT3));
-    }
+    @Autowired
+    public RestaurantService restaurantService;
 
     @Test
     public void getIs() throws Exception {
@@ -60,37 +56,21 @@ public class EatRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Transactional(propagation = Propagation.NEVER)
     public void copyMenu() throws Exception {
         mockMvc.perform(get(URL + "copy/" + RES_ID1 + "?date=2018-03-24")
                 .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        assertMatch(service.getAll(RES_ID1, LocalDate.now()), EatData.getNewEatToday());
+        List<Eat> list = restaurantService.get(RES_ID1).getMenu().stream()
+                .filter(i->i.getDate().isEqual(LocalDate.now())).collect(Collectors.toList());
+        assertMatch(list, EatData.getNewEatToday());
     }
 
     @Test
-    public void getBetween() throws Exception {
-        mockMvc.perform(get(URL + "history/" + RES_ID1 + "?starDate=2018-03-24&endDate=2018-03-25")
-                .with(userHttpBasic(USER1)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(EAT12, EAT2, EAT1, EAT3));
-    }
-
-    @Test
-    public void getBetweenWidthNull() throws Exception {
-        mockMvc.perform(get(URL + "history/" + RES_ID1 + "?starDate=")
-                .with(userHttpBasic(USER1)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(EAT12, EAT2, EAT1, EAT3));
-    }
-
-    @Test
+    @Transactional(propagation = Propagation.NEVER)
     public void create() throws Exception {
-        Eat expected = new Eat(null, "Пельмени", 500);
+        Eat expected = new Eat(null, "wertytreerer", 500);
         ResultActions action = mockMvc.perform(post(URL + RES_ID1)
                 .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -101,9 +81,11 @@ public class EatRestControllerTest extends AbstractControllerTest {
         expected.setId(returned.getId());
         expected.setDate(returned.getDate());
         expected.setRestaurant(returned.getRestaurant());
+        List<Eat> list = restaurantService.get(RES_ID1).getMenu().stream()
+                .filter(i->i.getDate().isEqual(LocalDate.now())).collect(Collectors.toList());
 
         assertMatch(returned, expected);
-        assertMatch(service.getAll(RES_ID1, LocalDate.now()), expected);
+        assertMatch(list, expected);
     }
 
     @Test
@@ -121,15 +103,15 @@ public class EatRestControllerTest extends AbstractControllerTest {
         assertMatch(service.get(EAT1_ID), updated);
     }
 
-
-
     @Test
     public void testDelete() throws Exception {
         mockMvc.perform(delete(URL + EAT1_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertMatch(service.getAll(RES_ID1, DATE24), EAT2, EAT3);
+        List<Eat> list = restaurantService.get(RES_ID1).getMenu().stream()
+                .filter(i->i.getDate().isEqual(DATE24)).collect(Collectors.toList());
+        assertMatch(list, EAT2, EAT3);
     }
 
     @Test

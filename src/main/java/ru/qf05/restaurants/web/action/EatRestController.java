@@ -15,7 +15,6 @@ import ru.qf05.restaurants.web.AbstractLogerController;
 import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
-import java.util.List;
 
 import static ru.qf05.restaurants.util.ValidationUtil.assureIdConsistent;
 import static ru.qf05.restaurants.util.ValidationUtil.checkNew;
@@ -27,24 +26,6 @@ public class EatRestController extends AbstractLogerController {
 
     @Autowired
     EatService eatService;
-
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Eat> getAll(@PathVariable("id") int restaurantId,
-                            @RequestParam(value = "date", required = false)
-                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        log.info("getAll eat for {} restaurant for {} date", restaurantId, date);
-        return eatService.getAll(restaurantId, date);
-    }
-
-    @GetMapping(value = "/history/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Eat> getBetween(@PathVariable("id") int restaurantId,
-                                @RequestParam(value = "startDate", required = false)
-                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-                                @RequestParam(value = "endDate", required = false)
-                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        log.info("getBetween eat for {} restaurant from {} to {} date", restaurantId, startDate, endDate);
-        return eatService.getAllBetween(startDate, endDate, restaurantId);
-    }
 
     @Secured(value = {"ROLE_ADMIN"})
     @PostMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

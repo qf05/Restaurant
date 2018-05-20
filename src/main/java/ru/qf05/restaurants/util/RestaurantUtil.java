@@ -8,16 +8,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
-
 public class RestaurantUtil {
 
     public static RestaurantAndVoice get(Restaurant restaurant) {
         return new RestaurantAndVoice(restaurant);
-    }
-
-    public static List<RestaurantAndVoice> getAll(List<Restaurant> list) {
-        return list.stream().map(RestaurantAndVoice::new).collect(toList());
     }
 
     public static List<RestaurantAndVoice> getAllWidthMenu(List<Restaurant> list,
@@ -44,14 +38,8 @@ public class RestaurantUtil {
         LocalDate date = DateTimeUtil.nullToNow(inputDate);
         LocalDate startDate = DateTimeUtil.nullToMin(inputStartDate);
         LocalDate endDate = DateTimeUtil.nullToMax(inputEndDate);
-        return list.stream().map(i -> {
-            Integer count = i.getVoices() == null ? 0 : (int) i.getVoices().stream().
-                    filter(v -> DateTimeUtil.isBetween(v.getDate(), startDate, endDate)).count();
-            List<Eat> eats = i.getMenu() == null ? null : i.getMenu().stream()
-                    .filter(m -> m.getDate().isEqual(date))
-                    .collect(Collectors.toList());
-            return new RestaurantAndVoice(i, voice(i, startDate, endDate), menu(i, date));
-        }).collect(Collectors.toList());
+
+        return list.stream().map(i -> new RestaurantAndVoice(i, voice(i, startDate, endDate), menu(i, date))).collect(Collectors.toList());
     }
 
     public static List<RestaurantAndVoice> getAll(List<Restaurant> list,
@@ -66,22 +54,6 @@ public class RestaurantUtil {
 
         return list.stream().map(i -> new RestaurantAndVoice(i, voice(i, startDate, endDate),
                 menu(i, startDateMenu, endDateMenu))).collect(Collectors.toList());
-    }
-
-    public static List<RestaurantAndVoice> getAllWidthOutMenu(List<Restaurant> list,
-                                                              LocalDate inputDate) {
-        LocalDate date = DateTimeUtil.nullToNow(inputDate);
-
-        return list.stream().map(i -> new RestaurantAndVoice(i, voice(i, date), null)).collect(Collectors.toList());
-    }
-
-    public static List<RestaurantAndVoice> getAllWidthOutMenu(List<Restaurant> list,
-                                                              LocalDate inputStartDate,
-                                                              LocalDate inputEndDate) {
-        LocalDate startDate = DateTimeUtil.nullToMin(inputStartDate);
-        LocalDate endDate = DateTimeUtil.nullToMax(inputEndDate);
-
-        return list.stream().map(i -> new RestaurantAndVoice(i, voice(i, startDate, endDate), null)).collect(Collectors.toList());
     }
 
     private static List<Eat> menu(Restaurant restaurant, LocalDate date) {

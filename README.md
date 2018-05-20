@@ -50,39 +50,24 @@ get Restaurant 100003
 `curl -s http://localhost:8080/restaurant/100003 --user user1@yandex.ru:password`
 
 
-get All Restaurant width All Voice
-
-`curl -s http://localhost:8080/restaurant --user user1@yandex.ru:password`
-
-
-get All Restaurant width Voice for date
-
-`curl -s http://localhost:8080/restaurant/date?date=2018-03-24 --user user1@yandex.ru:password`
-
-
 get All Restaurant width All Voice and Menu for date
 
-`curl -s http://localhost:8080/restaurant/menu?date=2018-03-24 --user user1@yandex.ru:password`
+`curl -s http://localhost:8080/restaurant?date=2018-03-24 --user user1@yandex.ru:password`
 
 
 get All Restaurant width Voice and Menu for date
 
-`curl -s http://localhost:8080/restaurant/date/menu?date=2018-03-24 --user user1@yandex.ru:password`
-
-
-get All Restaurant width history Voice from date to date
-
-`curl -s "http://localhost:8080/restaurant/date/menu?startDate=2018-03-24&endDate=2018-03-25" --user user1@yandex.ru:password`
+`curl -s http://localhost:8080/restaurant/date?date=2018-03-24 --user user1@yandex.ru:password`
 
 
 get All Restaurant width history Voice from date to date and Menu for date
 
-`curl -s "http://localhost:8080/restaurant/history/menu?startDate=2018-03-24&endDate=2018-03-25&dateMenu=2018-03-24" --user user1@yandex.ru:password`
+`curl -s "http://localhost:8080/restaurant/history?startDate=2018-03-24&endDate=2018-03-25&dateMenu=2018-03-24" --user user1@yandex.ru:password`
 
 
 get All Restaurant width history Voice from date to date and history Menu from date to date 
 
-`curl -s "http://localhost:8080/restaurant/history/menu/history?startDateVoice=2018-03-24&endDateVoice=2018-03-25&startDateMenu=2018-03-24&endDateMenu=2018-03-25" --user user1@yandex.ru:password`
+`curl -s "http://localhost:8080/restaurant/history/menu?startDateVoice=2018-03-24&endDateVoice=2018-03-25&startDateMenu=2018-03-24&endDateMenu=2018-03-25" --user user1@yandex.ru:password`
 
 
 create Restaurant
@@ -102,16 +87,6 @@ update Restaurant 100003
 
 ---
 ##### MENU
-
-
-get All Eat from Restaurant 100003 for date
-
-`curl -s http://localhost:8080/menu/100003?date=2018-03-24 --user user1@yandex.ru:password`
-
-
-get history Eat from Restaurant 100003 from date to date
-
-`curl -s "http://localhost:8080/menu/history/100003?startDate=2018-03-24&endDate=2018-03-25" --user user1@yandex.ru:password`
 
 
 crate Eat for Restaurant 100003
@@ -142,30 +117,6 @@ copy Menu for Restaurant 100003 from date (if date is absent or date is today, t
 
 ---
 ##### VOICES
-
-get All Voices from date
-
-`curl -s http://localhost:8080/voice?date=2018-03-24 --user user1@yandex.ru:password`
-
-
-get All Voices from Restaurant 100003 for date
-
-`curl -s http://localhost:8080/voice/100003?date=2018-03-24 --user user1@yandex.ru:password`
-
-
-get history Voices from Restaurant 100003 from date to date
-
-`curl -s "http://localhost:8080/voice/history/100003?startDate=2018-03-24&endDate=2018-03-25" --user user1@yandex.ru:password`
-
-
-get history All Voices from date to date
-
-`curl -s "http://localhost:8080/voice/history?startDate=2018-03-24&endDate=2018-03-25" --user user1@yandex.ru:password`
-
-
-get Voice for User 100000 for date
-
-`curl -s http://localhost:8080/voice/is/100000?date=2018-03-24 --user user1@yandex.ru:password`
 
 
 Voice to Restaurant 100003

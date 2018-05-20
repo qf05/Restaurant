@@ -35,16 +35,6 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
     @Autowired
     private RestaurantService service;
 
-    @Test
-    public void getAllToData() throws Exception {
-        mockMvc.perform(get(URL + "date?date=2018-03-24")
-                .with(userHttpBasic(USER1)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(RestaurantUtil.getAllWidthOutMenu(Arrays.asList(RES1, RES2, RES4, RES3),
-                        DATE24)));
-    }
 
     @Test
     public void getIs() throws Exception {
@@ -56,20 +46,10 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
                 .andExpect(contentJson(RestaurantUtil.get(RES1)));
     }
 
-    @Test
-    public void getAll() throws Exception {
-        mockMvc.perform(get(URL)
-                .with(userHttpBasic(USER1)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(RestaurantUtil.getAll(Arrays.asList(RES1, RES2, RES4, RES3))));
-    }
 
     @Test
-    @Transactional(propagation = Propagation.NEVER)
-    public void getAllWidthMenu() throws Exception {
-        mockMvc.perform(get(URL + "menu?date=2018-03-24")
+    public void getAll() throws Exception {
+        mockMvc.perform(get(URL + "?date=2018-03-24")
                 .with(userHttpBasic(USER1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -79,8 +59,8 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
 
     @Test
     @Transactional(propagation = Propagation.NEVER)
-    public void getAllWidthMenuToDate() throws Exception {
-        mockMvc.perform(get(URL + "date/menu?date=2018-03-24")
+    public void getAllToDate() throws Exception {
+        mockMvc.perform(get(URL + "date?date=2018-03-24")
                 .with(userHttpBasic(USER1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -88,20 +68,9 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
                 .andExpect(contentJson(RestaurantUtil.getAll(Arrays.asList(RES1, RES2, RES4, RES3), DATE24)));
     }
 
-
-    @Test
-    public void getAllBetweenWidthOutMenu() throws Exception {
-        mockMvc.perform(get(URL + "history?startDate=2018-03-24&endDate=2018-03-25")
-                .with(userHttpBasic(USER1)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(RestaurantUtil.getAllWidthOutMenu(Arrays.asList(RES1, RES2, RES4, RES3), DATE24, DATE25)));
-    }
-
     @Test
     public void getAllBetweenOfVoices() throws Exception {
-        mockMvc.perform(get(URL + "history/menu?startDate=2018-03-24&endDate=2018-03-25" +
+        mockMvc.perform(get(URL + "history?startDate=2018-03-24&endDate=2018-03-25" +
                 "&dateMenu=2018-03-24")
                 .with(userHttpBasic(USER1)))
                 .andExpect(status().isOk())
@@ -112,7 +81,7 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void getAllBetweenOfVoicesAndMenu() throws Exception {
-        mockMvc.perform(get(URL + "history/menu/history?startDateVoice=2018-03-24&endDateVoice=2018-03-25" +
+        mockMvc.perform(get(URL + "history/menu?startDateVoice=2018-03-24&endDateVoice=2018-03-25" +
                 "&startDateMenu=2018-03-24&endDateMenu=2018-03-25")
                 .with(userHttpBasic(USER1)))
                 .andExpect(status().isOk())

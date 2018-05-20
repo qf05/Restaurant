@@ -9,12 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @NamedQueries({
-        @NamedQuery(name = Voices.GET, query = "SELECT DISTINCT v FROM Voices v LEFT JOIN FETCH  v.restaurant WHERE v.userId=:userId AND v.date=:date"),
-        @NamedQuery(name = Voices.ALL, query = "SELECT DISTINCT v FROM Voices v LEFT JOIN FETCH  v.restaurant WHERE v.date=:date"),
-        @NamedQuery(name = Voices.ALLBETWEEN, query = "SELECT DISTINCT v FROM Voices v LEFT JOIN FETCH  v.restaurant WHERE v.date>=:startDate AND v.date<=:endDate"),
-        @NamedQuery(name = Voices.ALLTORESTARAUNT, query = "SELECT DISTINCT v FROM Voices v LEFT JOIN FETCH  v.restaurant WHERE v.restaurant.id=:rId AND v.date=:date"),
-        @NamedQuery(name = Voices.ALLTORESTARAUNTHISTORY, query = "SELECT DISTINCT v FROM Voices v LEFT JOIN FETCH  v.restaurant WHERE v.restaurant.id=:rId AND v.date>=:startDate AND v.date<=:endDate")
-
+        @NamedQuery(name = Voices.GET, query = "SELECT DISTINCT v FROM Voices v WHERE v.userId=:userId AND v.date=:date"),
 })
 
 @Entity
@@ -22,10 +17,6 @@ import java.time.LocalDate;
 public class Voices extends AbstractBaseEntity {
 
     public static final String GET = "Voices.get";
-    public static final String ALL = "Voices.all";
-    public static final String ALLBETWEEN = "Voices.allBetween";
-    public static final String ALLTORESTARAUNT = "Voices.allToRes";
-    public static final String ALLTORESTARAUNTHISTORY = "Voices.ToResHistory";
 
     @Column(name = "user_id", nullable = false)
     @NotNull

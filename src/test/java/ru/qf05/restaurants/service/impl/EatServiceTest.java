@@ -7,20 +7,25 @@ import ru.qf05.restaurants.data.EatData;
 import ru.qf05.restaurants.model.Eat;
 import ru.qf05.restaurants.service.AbstractServiceTest;
 import ru.qf05.restaurants.service.EatService;
+import ru.qf05.restaurants.service.RestaurantService;
 import ru.qf05.restaurants.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.qf05.restaurants.data.EatData.*;
-import static ru.qf05.restaurants.data.EatData.assertMatch;
-import static ru.qf05.restaurants.data.RestaurantData.*;
+import static ru.qf05.restaurants.data.RestaurantData.DATE24;
+import static ru.qf05.restaurants.data.RestaurantData.RES_ID1;
 
 public class EatServiceTest extends AbstractServiceTest {
 
     @Autowired
     private EatService service;
+
+    @Autowired
+    public RestaurantService restaurantService;
 
     @Test
     public void get() {
@@ -31,14 +36,9 @@ public class EatServiceTest extends AbstractServiceTest {
     @Test
     public void delete() {
         service.delete(EAT1_ID);
-        List<Eat> list = service.getAll(RES_ID1, DATE24);
+        List<Eat> list = restaurantService.get(RES_ID1).getMenu().stream()
+                .filter(i->i.getDate().isEqual(DATE24)).collect(Collectors.toList());
         assertMatch(list, EAT2, EAT3);
-    }
-
-    @Test
-    public void getAll() {
-        List<Eat> list = service.getAll(RES_ID1, DATE24);
-        assertMatch(list, EAT2, EAT1, EAT3);
     }
 
     @Test
@@ -56,19 +56,17 @@ public class EatServiceTest extends AbstractServiceTest {
         Eat created = service.create(newEat, RES_ID1);
         newEat.setId(created.getId());
         newEat.setDate(created.getDate());
-        assertMatch(service.getAll(RES_ID1, created.getDate()), newEat);
-    }
-
-    @Test
-    public void getAllBetween() {
-        List<Eat> list = service.getAllBetween(DATE24, DATE25, RES_ID1);
-        assertMatch(list, EAT12, EAT2, EAT1, EAT3);
+        List<Eat> list = restaurantService.get(RES_ID1).getMenu().stream()
+                .filter(i->i.getDate().isEqual(created.getDate())).collect(Collectors.toList());
+        assertMatch(list, newEat);
     }
 
     @Test
     public void copyMenu() {
         service.copyMenu(RES_ID1, DATE24);
-        assertMatch(service.getAll(RES_ID1, LocalDate.now()), EatData.getNewEatToday());
+        List<Eat> list = restaurantService.get(RES_ID1).getMenu().stream()
+                .filter(i->i.getDate().isEqual(LocalDate.now())).collect(Collectors.toList());
+        assertMatch(list, EatData.getNewEatToday());
     }
 
     @Test(expected = NotFoundException.class)

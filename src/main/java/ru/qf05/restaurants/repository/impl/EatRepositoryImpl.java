@@ -35,27 +35,6 @@ public class EatRepositoryImpl implements EatRepository {
     }
 
     @Override
-    public List<Eat> getAllBetween(LocalDate startDate, LocalDate endDate, int id) {
-        List<Eat> eats = em.createNamedQuery(Eat.ALLBETWEEN, Eat.class)
-                .setParameter("rId", id)
-                .setParameter("startDate", startDate)
-                .setParameter("endDate", endDate)
-                .getResultList();
-        eats.forEach(i->i.getRestaurant().setMenu(null));
-        return eats;
-    }
-
-    @Override
-    public List<Eat> getAll(int id, LocalDate date) {
-        List<Eat> eats = em.createNamedQuery(Eat.ALL_SORTED, Eat.class)
-                .setParameter("rId", id)
-                .setParameter("date", date)
-                .getResultList();
-        eats.forEach(i->i.getRestaurant().setMenu(null));
-        return eats;
-    }
-
-    @Override
     public Eat get(int id) {
         return em.find(Eat.class, id);
     }

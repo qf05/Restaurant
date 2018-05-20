@@ -19,44 +19,6 @@ public class VoicesRepositoryImpl implements VoicesRepository {
     @PersistenceContext
     private EntityManager em;
 
-    @Override
-    public List<Voices> getAll(LocalDate date) {
-        List<Voices> voices = em.createNamedQuery(Voices.ALL, Voices.class).setParameter("date", date).getResultList();
-        voices.forEach(i->i.getRestaurant().setMenu(null));
-        return voices;
-    }
-
-    @Override
-    public List<Voices> getAllBetween(LocalDate startDate, LocalDate endDate) {
-        List<Voices> voices =  em.createNamedQuery(Voices.ALLBETWEEN, Voices.class)
-                .setParameter("startDate", startDate)
-                .setParameter("endDate", endDate)
-                .getResultList();
-        voices.forEach(i->i.getRestaurant().setMenu(null));
-        return voices;
-    }
-
-    @Override
-    public List<Voices> getAllToRestaurant(LocalDate date, int rId) {
-        List<Voices> voices =  em.createNamedQuery(Voices.ALLTORESTARAUNT, Voices.class)
-                .setParameter("date", date)
-                .setParameter("rId", rId)
-                .getResultList();
-        voices.forEach(i->i.getRestaurant().setMenu(null));
-        return voices;
-    }
-
-    @Override
-    public List<Voices> getAllToRestaurantHistory(LocalDate startDate, LocalDate endDate, int rId) {
-        List<Voices> voices =  em.createNamedQuery(Voices.ALLTORESTARAUNTHISTORY, Voices.class)
-                .setParameter("startDate", startDate)
-                .setParameter("endDate", endDate)
-                .setParameter("rId", rId)
-                .getResultList();
-        voices.forEach(i->i.getRestaurant().setMenu(null));
-        return voices;
-    }
-
     @Transactional
     @Override
     public Voices save(int rId, Voices voices) {

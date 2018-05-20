@@ -15,7 +15,7 @@ import static ru.qf05.restaurants.data.RestaurantData.*;
 public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Autowired
-    RestaurantService service;
+    public RestaurantService service;
 
     @Test
     public void get() {

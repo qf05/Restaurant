@@ -31,42 +31,20 @@ public class RestaurantRestController extends AbstractLogerController {
     RestaurantService restaurantService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RestaurantAndVoice> getAll() {
-        log.info("getAll restaurant");
-        return RestaurantUtil.getAll(restaurantService.getAll());
-    }
-
-    @GetMapping(value = "/date",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RestaurantAndVoice> getAllToDate(@RequestParam(value = "date", required = false)
-                                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        log.info("getAll restaurant for {} date", date);
-        return RestaurantUtil.getAllWidthOutMenu(restaurantService.getAll(), date);
-    }
-
-    @GetMapping(value = "/menu", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RestaurantAndVoice> getAllWidthMenu(@RequestParam(value = "date", required = false)
+    public List<RestaurantAndVoice> getAll(@RequestParam(value = "date", required = false)
                                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         log.info("getAll restaurant for {} date", date);
         return RestaurantUtil.getAllWidthMenu(restaurantService.getAll(), date);
     }
 
-    @GetMapping(value = "/date/menu", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RestaurantAndVoice> getAllWidthMenuToDate(@RequestParam(value = "date", required = false)
+    @GetMapping(value = "/date", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<RestaurantAndVoice> getAllToDate(@RequestParam(value = "date", required = false)
                                                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         log.info("getAllWidthMenu restaurant for {} date", date);
         return RestaurantUtil.getAll(restaurantService.getAll(), date);
     }
 
     @GetMapping(value = "/history", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RestaurantAndVoice> getAllBetweenWidthOutMenu(@RequestParam(value = "startDate", required = false)
-                                                              @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-                                                              @RequestParam(value = "endDate", required = false)
-                                                              @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        log.info("getAllBetweenWidthOutMenu restaurant from {} to {} date", startDate, endDate);
-        return RestaurantUtil.getAllWidthOutMenu(restaurantService.getAll(), startDate, endDate);
-    }
-
-    @GetMapping(value = "/history/menu", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RestaurantAndVoice> getAllBetweenOfVoices(@RequestParam(value = "startDate", required = false)
                                                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDateVoice,
                                                           @RequestParam(value = "endDate", required = false)
@@ -77,7 +55,7 @@ public class RestaurantRestController extends AbstractLogerController {
         return RestaurantUtil.getAll(restaurantService.getAll(), startDateVoice, endDateVoice, date);
     }
 
-    @GetMapping(value = "/history/menu/history", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/history/menu", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RestaurantAndVoice> getAllBetweenOfVoicesAndMenu(@RequestParam(value = "startDateVoice", required = false)
                                                                  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDateVoice,
                                                                  @RequestParam(value = "endDateVoice", required = false)

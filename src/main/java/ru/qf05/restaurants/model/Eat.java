@@ -11,7 +11,6 @@ import java.time.LocalDate;
 
 @NamedQueries({
         @NamedQuery(name = Eat.ALL_SORTED, query = "SELECT DISTINCT e FROM Eat e LEFT JOIN FETCH e.restaurant WHERE e.restaurant.id=:rId AND e.date=:date ORDER BY e.name"),
-        @NamedQuery(name = Eat.ALLBETWEEN, query = "SELECT DISTINCT e FROM Eat e LEFT JOIN FETCH e.restaurant WHERE e.restaurant.id=:rId AND e.date>=:startDate AND e.date<=:endDate ORDER BY e.date DESC ,e.name"),
         @NamedQuery(name = Eat.DELETE, query = "DELETE FROM Eat e WHERE e.id =:id")
 })
 
@@ -20,7 +19,6 @@ import java.time.LocalDate;
 public class Eat extends AbstractNamedEntity {
 
     public static final String ALL_SORTED = "Eat.getAllSorted";
-    public static final String ALLBETWEEN = "Eat.getAllBetween";
     public static final String DELETE = "Eat.delete";
 
     @Column(name = "date_time", nullable = false)
