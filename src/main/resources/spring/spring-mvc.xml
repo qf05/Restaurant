@@ -1,6 +1,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:security="http://www.springframework.org/schema/security"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -42,7 +43,8 @@
     <security:global-method-security secured-annotations="enabled"
                                      jsr250-annotations="enabled"
                                      pre-post-annotations="enabled"/>
-    <!--<bean class="org.springframework.ru.qf05.restaurants.web.servlet.view.InternalResourceViewResolver"-->
-    <!--p:prefix="/WEB-INF/jsp/"-->
-    <!--p:suffix=".jsp"/>-->
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+    p:prefix="/WEB-INF/jsp/"
+    p:suffix=".jsp"/>
 </beans>

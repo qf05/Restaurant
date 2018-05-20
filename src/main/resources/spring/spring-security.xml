@@ -7,6 +7,7 @@
     <http pattern="/resources/**" security="none"/>
     <http pattern="/webjars/**" security="none"/>
     <http pattern="/login/**" security="none"/>
+    <http pattern="/exception/**" security="none"/>
 
     <http pattern="/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
         <http-basic/>
@@ -14,6 +15,8 @@
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <csrf disabled="true"/>
     </http>
+
+    <!--<beans:bean class="ru.qf05.restaurants.web.GlobalControllerExceptionHandler" id="globalControllerExceptionHandler"/>-->
 
     <beans:bean class="org.springframework.security.crypto.factory.PasswordEncoderFactories" id="passwordEncoder"
                 factory-method="createDelegatingPasswordEncoder"/>

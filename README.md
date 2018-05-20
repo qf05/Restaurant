@@ -1,6 +1,6 @@
 # Restaurant
 
-###Тестовое задание на оплачиваемую стажировку
+### Тестовое задание на оплачиваемую стажировку
 
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
 
@@ -30,7 +30,7 @@ P.P.S.: Asume that your API will be used by a frontend developer to build fronte
 
 ---
 
-###Description
+### Description
 
 **For bild use Java 9.**
 
@@ -40,10 +40,10 @@ Configuration The application configured with predefined users(role, email, pass
 * USER, user1@yandex.ru, password
 * USER, user2@yandex.ru, password
 
-###CURL Commands
+### CURL Commands
 
 ---
-#####RESTAURANT
+##### RESTAURANT
 
 get Restaurant 100003
 
@@ -101,7 +101,7 @@ update Restaurant 100003
 
 
 ---
-#####MENU
+##### MENU
 
 
 get All Eat from Restaurant 100003 for date
@@ -141,7 +141,7 @@ copy Menu for Restaurant 100003 from date (if date is absent or date is today, t
 
 
 ---
-#####VOICES
+##### VOICES
 
 get All Voices from date
 
@@ -174,7 +174,7 @@ Voice to Restaurant 100003
 
 
 ---
-#####USER
+##### USER
 
 Registration new User (No sequrity)
 
@@ -197,7 +197,7 @@ delete User
 
 
 ---
-#####ADMIN
+##### ADMIN
 
 get All User
 
