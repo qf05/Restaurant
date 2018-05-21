@@ -8,7 +8,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RestaurantUtil {
+public final class RestaurantUtil {
+
+    private RestaurantUtil() {
+    }
 
     public static RestaurantAndVoice get(Restaurant restaurant) {
         return new RestaurantAndVoice(restaurant);
@@ -62,7 +65,9 @@ public class RestaurantUtil {
             return restaurant.getMenu().stream()
                     .filter(i -> i.getDate().isEqual(date))
                     .collect(Collectors.toList());
-        } else return null;
+        } else {
+            return null;
+        }
     }
 
     private static List<Eat> menu(Restaurant restaurant, LocalDate startDate, LocalDate endDate) {
@@ -71,7 +76,9 @@ public class RestaurantUtil {
             return restaurant.getMenu().stream()
                     .filter(i -> DateTimeUtil.isBetween(i.getDate(), startDate, endDate))
                     .collect(Collectors.toList());
-        } else return null;
+        } else {
+            return null;
+        }
     }
 
     private static int voice(Restaurant restaurant, LocalDate date) {

@@ -22,7 +22,7 @@ public class VoicesRestController extends AbstractLogerController {
     static final String REST_URL_VOICE = "/voice";
 
     @Autowired
-    VoicesService voicesService;
+    private VoicesService voicesService;
 
     @PostMapping(value = "/{id}")
     public ResponseEntity<Voices> voice(@PathVariable("id") int restaurantId, @AuthenticationPrincipal AuthorizedUser authorizedUser) {

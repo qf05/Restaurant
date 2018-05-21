@@ -28,7 +28,7 @@ public class RestaurantRestController extends AbstractLogerController {
     static final String REST_URL_RESTAURANT = "/restaurant";
 
     @Autowired
-    RestaurantService restaurantService;
+    private RestaurantService restaurantService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RestaurantAndVoice> getAll(@RequestParam(value = "date", required = false)

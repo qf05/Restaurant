@@ -9,6 +9,8 @@ import java.util.Collections;
 
 public class UserUtil {
 
+    private UserUtil(){}
+
     public static User prepareToSave(User user, PasswordEncoder passwordEncoder) {
         if (user.getRoles() == null || user.getRoles().size() < 1) {
             user.setRoles(Collections.singleton(Role.ROLE_USER));

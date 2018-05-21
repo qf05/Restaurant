@@ -11,10 +11,6 @@ public class ApplicationException extends RuntimeException {
     private final HttpStatus httpStatus;
     private final String[] args;
 
-    public ApplicationException(String msgCode, HttpStatus httpStatus) {
-        this(ErrorType.APP_ERROR, msgCode, httpStatus);
-    }
-
     public ApplicationException(ErrorType type, String msgCode, HttpStatus httpStatus, String... args) {
         super(String.format("type=%s, msgCode=%s, args=%s", type, msgCode, Arrays.toString(args)));
         this.type = type;

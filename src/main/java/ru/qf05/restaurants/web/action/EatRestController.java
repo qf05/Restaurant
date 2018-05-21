@@ -25,7 +25,7 @@ public class EatRestController extends AbstractLogerController {
     static final String REST_URL_MENU = "/menu";
 
     @Autowired
-    EatService eatService;
+    private EatService eatService;
 
     @Secured(value = {"ROLE_ADMIN"})
     @PostMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
