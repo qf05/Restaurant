@@ -1,3 +1,10 @@
+[![Dependency Status](https://www.versioneye.com/user/projects/5b026d370fb24f0e57e3e64f/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5b026d370fb24f0e57e3e64f)
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/292c090f96aa4b4499f5ce39650e8197)](https://www.codacy.com/app/qf05/Restaurant?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=qf05/Restaurant&amp;utm_campaign=Badge_Grade)
+
+
+
+
 # Restaurant
 
 ### Тестовое задание на оплачиваемую стажировку
