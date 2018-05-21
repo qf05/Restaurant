@@ -3,7 +3,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/292c090f96aa4b4499f5ce39650e8197)](https://www.codacy.com/app/qf05/Restaurant?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=qf05/Restaurant&amp;utm_campaign=Badge_Grade)
 
 
-
+[![Build Status](https://travis-ci.org/qf05/Restaurant.svg?branch=master)](https://travis-ci.org/qf05/Restaurant)
 
 # Restaurant
 
@@ -39,7 +39,7 @@ P.P.S.: Asume that your API will be used by a frontend developer to build fronte
 
 ### Description
 
-**For bild use Java 9.**
+**For bild use Java 8 or letter.**
 
 Configuration The application configured with predefined users(role, email, password):
 
