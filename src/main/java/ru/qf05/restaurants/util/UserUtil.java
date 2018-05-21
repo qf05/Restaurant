@@ -7,7 +7,9 @@ import ru.qf05.restaurants.model.User;
 
 import java.util.Collections;
 
-public class UserUtil {
+public final class UserUtil {
+
+    private UserUtil(){}
 
     public static User prepareToSave(User user, PasswordEncoder passwordEncoder) {
         if (user.getRoles() == null || user.getRoles().size() < 1) {

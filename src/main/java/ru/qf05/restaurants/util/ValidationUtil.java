@@ -6,7 +6,7 @@ import ru.qf05.restaurants.util.exception.NotFoundException;
 
 import javax.validation.groups.Default;
 
-public class ValidationUtil {
+public final class ValidationUtil {
 
     public interface Persist extends Default {
     }

@@ -10,7 +10,10 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
-public class RestaurantUtil {
+public final class RestaurantUtil {
+
+    private RestaurantUtil() {
+    }
 
     public static RestaurantAndVoice get(Restaurant restaurant) {
         return new RestaurantAndVoice(restaurant);
@@ -44,14 +47,7 @@ public class RestaurantUtil {
         LocalDate date = DateTimeUtil.nullToNow(inputDate);
         LocalDate startDate = DateTimeUtil.nullToMin(inputStartDate);
         LocalDate endDate = DateTimeUtil.nullToMax(inputEndDate);
-        return list.stream().map(i -> {
-            Integer count = i.getVoices() == null ? 0 : (int) i.getVoices().stream().
-                    filter(v -> DateTimeUtil.isBetween(v.getDate(), startDate, endDate)).count();
-            List<Eat> eats = i.getMenu() == null ? null : i.getMenu().stream()
-                    .filter(m -> m.getDate().isEqual(date))
-                    .collect(Collectors.toList());
-            return new RestaurantAndVoice(i, voice(i, startDate, endDate), menu(i, date));
-        }).collect(Collectors.toList());
+        return list.stream().map(i -> new RestaurantAndVoice(i, voice(i, startDate, endDate), menu(i, date))).collect(Collectors.toList());
     }
 
     public static List<RestaurantAndVoice> getAll(List<Restaurant> list,
@@ -90,7 +86,9 @@ public class RestaurantUtil {
             return restaurant.getMenu().stream()
                     .filter(i -> i.getDate().isEqual(date))
                     .collect(Collectors.toList());
-        } else return null;
+        } else {
+            return null;
+        }
     }
 
     private static List<Eat> menu(Restaurant restaurant, LocalDate startDate, LocalDate endDate) {
@@ -99,7 +97,9 @@ public class RestaurantUtil {
             return restaurant.getMenu().stream()
                     .filter(i -> DateTimeUtil.isBetween(i.getDate(), startDate, endDate))
                     .collect(Collectors.toList());
-        } else return null;
+        } else {
+            return null;
+        }
     }
 
     private static int voice(Restaurant restaurant, LocalDate date) {

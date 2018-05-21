@@ -26,7 +26,7 @@ public class EatRestController extends AbstractLogerController {
     static final String REST_URL_MENU = "/menu";
 
     @Autowired
-    EatService eatService;
+    private EatService eatService;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Eat> getAll(@PathVariable("id") int restaurantId,

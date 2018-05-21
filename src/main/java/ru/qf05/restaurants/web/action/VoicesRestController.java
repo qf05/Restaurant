@@ -23,7 +23,7 @@ public class VoicesRestController extends AbstractLogerController {
     static final String REST_URL_VOICE = "/voice";
 
     @Autowired
-    VoicesService voicesService;
+    private VoicesService voicesService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Voices> getAll(@RequestParam(value = "date", required = false)
