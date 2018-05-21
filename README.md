@@ -3,8 +3,7 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/5b026d2e0fb24f0e5d514f62/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5b026d2e0fb24f0e5d514f62)
 
 
-
-
+[![Build Status](https://travis-ci.org/qf05/Restaurant.svg?branch=clear)](https://travis-ci.org/qf05/Restaurant)
 
 
 # Restaurant
