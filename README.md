@@ -40,6 +40,12 @@ Configuration The application configured with predefined users(role, email, pass
 * USER, user1@yandex.ru, password
 * USER, user2@yandex.ru, password
 
+**Wherever the date is used if the date is empty or absent:**
+* date = Today,
+* startDate = MinDate (year=1, mouth=1, day=1),
+* endDate = MaxDate (year=3000, mouth=1, day=1),
+* for copy menu date = Yesterday.
+
 ### CURL Commands
 
 ---
